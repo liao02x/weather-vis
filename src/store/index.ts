@@ -1,6 +1,6 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
 import day from "dayjs";
-import { QUERY_PARAM_DICT } from "@utils/config";
+import { QUERY_PARAM_DICT } from "@/utils/config";
 
 const initialState: any = {
   text: null,

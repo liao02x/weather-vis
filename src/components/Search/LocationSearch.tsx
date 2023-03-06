@@ -3,7 +3,7 @@ import { LoadScriptNext } from "@react-google-maps/api";
 import { AutoComplete, Input } from "antd";
 import { debounce } from "lodash";
 import { SearchOutlined } from "@ant-design/icons";
-import { G_API_KEY } from "@utils/config";
+import { G_API_KEY } from "@/utils/config";
 
 const libraries = ["places" as const, "drawing" as const];
 

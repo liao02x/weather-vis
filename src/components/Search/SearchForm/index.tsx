@@ -4,9 +4,9 @@ import { Form, Button, Grid, Segmented, DatePicker, Select } from "antd";
 import day from "dayjs";
 import LocationSearch from "../LocationSearch";
 import CoordsDisplay from "../CoordsDisplay";
-import { PARAMS_DAILY_ARRAY, PARAMS_HOURLY_ARRAY } from "@utils/config";
-import noti from "@utils/noti";
-import { setQuery } from "@store";
+import { PARAMS_DAILY_ARRAY, PARAMS_HOURLY_ARRAY } from "@/utils/config";
+import noti from "@/utils/noti";
+import { setQuery } from "@/store";
 
 import "./SearchForm.css";
 
@@ -92,7 +92,7 @@ export default function SearchForm() {
 
   return (
     <Form form={form} layout="vertical" onFinish={handleSubmit}>
-      <Item label="Location">
+      <Item>
         <Item
           noStyle
           name="location"

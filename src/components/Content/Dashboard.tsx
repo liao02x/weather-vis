@@ -2,11 +2,14 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Layout, Card, Row, Col } from 'antd';
 import { Line } from '@ant-design/plots';
-import { getData } from "@utils/api";
+import { getData } from "@/utils/api";
 
 
-export default function Content() {
-  const [data, setData] = useState<any>([]);
+export default function Dashboard({ data }) {
+
+  console.log(data)
+
+  const [, setData] = useState<any>([]);
   const [fields, setFields] = useState<any>([]);
   useEffect(() => {
     getData().then(data => {

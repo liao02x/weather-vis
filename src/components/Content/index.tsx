@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Layout, Card, Row, Col, Spin } from 'antd';
+import { useRequest } from 'ahooks';
 import { Line } from '@ant-design/plots';
-import { getData } from "@utils/api";
+import { getData } from "@/utils/api";
 
 import "./Content.css"
 
@@ -11,6 +12,7 @@ export default function Content() {
   const [data, setData] = useState<any>([]);
   const [fields, setFields] = useState<any>([]);
   const { text, query } = useSelector((state: any) => state);
+
   useEffect(() => {
     getData().then(data => {
       console.log(data)

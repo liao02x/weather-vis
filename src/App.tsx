@@ -1,8 +1,8 @@
 import { Layout } from 'antd';
-import Search from "@components/Search";
-import Header from '@components/Header';
-import Content from '@components/Content';
-import { getData } from "@utils/api";
+import Search from "@/components/Search";
+import Header from '@/components/Header';
+import Content from '@/components/Content';
+import { getData } from "@/utils/api";
 
 import './App.css'
 
