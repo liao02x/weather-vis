@@ -8,6 +8,7 @@ import {
   DatePicker,
   Select,
 } from "antd";
+import day from "dayjs";
 import LocationSearch from "./LocationSearch";
 import CoordsDisplay from "./CoordsDisplay";
 import { PARAMS_DAILY_ARRAY, PARAMS_HOURLY_ARRAY } from "@utils/config";
@@ -69,8 +70,12 @@ export default function SearchForm() {
     }, handleGeolocationError)
   }
 
+  const handleSubmit = (values) => {
+    console.log(values)
+  }
+
   return (
-    <Form form={form} layout="vertical" onFinish={console.log}>
+    <Form form={form} layout="vertical" onFinish={handleSubmit}>
       <Item label="Location">
         <Item noStyle name="location">
           <LocationSearch />
@@ -87,7 +92,7 @@ export default function SearchForm() {
       <Item name="group" initialValue={GROUP_OPTIONS[0].value}>
         <Segmented options={GROUP_OPTIONS} />
       </Item>
-      <Item name="time" label="Time range">
+      <Item name="time" label="Time range" initialValue={[day().subtract(7, "day"), day()]}>
         <RangePicker style={{ width: "100%" }} showTime={!isDaily} />
       </Item>
       <Item name="fields" label="Data fields" initialValue={defaultFields}>
