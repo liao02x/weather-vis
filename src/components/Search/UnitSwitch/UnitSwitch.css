@@ -1,0 +1,17 @@
+.unit_switch__title {
+  text-align: center;
+  font-size: larger;
+  font-weight: 600;
+}
+
+.unit_switch__body {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 12px;
+  gap: 0.5rem;
+}
+
+.unit_switch__body > span > span:first-child {
+  padding-right: 0.5rem;
+}

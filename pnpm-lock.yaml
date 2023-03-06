@@ -3,6 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@ant-design/charts': ^1.4.2
   '@ant-design/icons': ^5.0.1
+  '@ant-design/plots': ^1.2.5
   '@react-google-maps/api': ^2.18.1
   '@reduxjs/toolkit': ^1.9.3
   '@types/react': ^18.0.27
@@ -26,6 +27,7 @@ specifiers:
 dependencies:
   '@ant-design/charts': 1.4.2_am7hgyw4bguve4ppg6slvaatya
   '@ant-design/icons': 5.0.1_biqbaboplfbrettd7655fr4n2y
+  '@ant-design/plots': 1.2.5_biqbaboplfbrettd7655fr4n2y
   '@react-google-maps/api': 2.18.1_biqbaboplfbrettd7655fr4n2y
   '@reduxjs/toolkit': 1.9.3_k4ae6lp43ej6mezo3ztvx6pykq
   antd: 5.2.3_biqbaboplfbrettd7655fr4n2y

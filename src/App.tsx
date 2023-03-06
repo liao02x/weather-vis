@@ -1,23 +1,26 @@
 import { Layout } from 'antd';
 import Search from "@components/Search";
+import Header from '@components/Header';
 import Content from '@components/Content';
 import { getData } from "@utils/api";
 
 import './App.css'
 
-const { Header, Footer } = Layout;
+const { Footer } = Layout;
 
 getData().then(console.log)
 
 function App() {
   return (
     <Layout className="app__root">
-      <Header className="app__header">Header</Header>
+      <Header/>
       <Layout className="app__container">
         <Search />
         <Content />
       </Layout>
-      <Footer className="app__footer">Footer</Footer>
+      <Footer className="app__footer">
+        <span>by @liao02x</span>
+      </Footer>
     </Layout>
   )
 }

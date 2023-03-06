@@ -8,7 +8,6 @@ import { getData } from "@utils/api";
 export default function Content() {
   const [data, setData] = useState<any>([]);
   const [fields, setFields] = useState<any>([]);
-  const { text } = useSelector((state: any) => state);
   useEffect(() => {
     getData().then(data => {
       console.log(data)
@@ -25,9 +24,6 @@ export default function Content() {
 
   return (
     <Layout.Content className="app__content">
-      <div className="p-2">
-        <span>{text}</span>
-      </div>
       <Row gutter={{ lg: 0, xl: 8, xxl: 16 }}>
         {fields.map(field => {
           return (

@@ -1,0 +1,23 @@
+.coords_display {
+  display: flex;
+  justify-content: space-between;
+  min-height: 22px;
+  padding: 0 0.25rem;
+}
+
+.coords_display > div {
+  display: flex;
+}
+
+.coords_display > div > span {
+  display: inline-block;
+  text-align: start;
+}
+
+.coords_display > div > span:first-child {
+  font-weight: 600;
+}
+
+.coords_display > div > span:last-child {
+  width: 4rem;
+}
