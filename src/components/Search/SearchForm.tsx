@@ -22,7 +22,10 @@ const GROUP_OPTIONS = [
   { label: "Hourly", value: "hourly" },
 ];
 
-const paramToOption = ({ name, queryParam }) => ({ label: name, value: queryParam });
+const paramToOption = ({ name, queryParam }) => ({
+  label: name,
+  value: queryParam,
+});
 
 const FIELD_OPTIONS_DAILY = PARAMS_DAILY_ARRAY.map(paramToOption);
 const FIELD_OPTIONS_HOURLY = PARAMS_HOURLY_ARRAY.map(paramToOption);
@@ -30,22 +33,22 @@ const FIELD_OPTIONS_HOURLY = PARAMS_HOURLY_ARRAY.map(paramToOption);
 const GEO_SUPPORTED = !!navigator.geolocation;
 const handleGeolocationError = (error) => {
   let message;
-  switch(error.code) {
+  switch (error.code) {
     case error.PERMISSION_DENIED:
-      message = "Please allow request for Geolocation."
+      message = "Please allow request for Geolocation.";
       break;
     case error.POSITION_UNAVAILABLE:
-      message = "Location information is unavailable."
+      message = "Location information is unavailable.";
       break;
     case error.TIMEOUT:
-      message = "Location request timed out."
+      message = "Location request timed out.";
       break;
     case error.UNKNOWN_ERROR:
-      message = "An error occurred for Geolocation."
+      message = "An error occurred for Geolocation.";
       break;
   }
-  noti.error(message)
-}
+  noti.error(message);
+};
 
 export default function SearchForm() {
   const [form] = Form.useForm();
@@ -58,21 +61,21 @@ export default function SearchForm() {
 
   useEffect(() => {
     form.setFieldValue("fields", defaultFields);
-  }, [isDaily])
+  }, [isDaily]);
 
   const getGeolocation = () => {
     navigator.geolocation.getCurrentPosition(({ coords }) => {
       form.setFieldValue("location", {
         lat: coords.latitude,
         lng: coords.longitude,
-        address: `${coords.latitude}, ${coords.longitude}`
+        address: `${coords.latitude}, ${coords.longitude}`,
       });
-    }, handleGeolocationError)
-  }
+    }, handleGeolocationError);
+  };
 
   const handleSubmit = (values) => {
-    console.log(values)
-  }
+    console.log(values);
+  };
 
   return (
     <Form form={form} layout="vertical" onFinish={handleSubmit}>
@@ -92,14 +95,15 @@ export default function SearchForm() {
       <Item name="group" initialValue={GROUP_OPTIONS[0].value}>
         <Segmented options={GROUP_OPTIONS} />
       </Item>
-      <Item name="time" label="Time range" initialValue={[day().subtract(7, "day"), day()]}>
+      <Item
+        name="time"
+        label="Time range"
+        initialValue={[day().subtract(7, "day"), day()]}
+      >
         <RangePicker style={{ width: "100%" }} showTime={!isDaily} />
       </Item>
       <Item name="fields" label="Data fields" initialValue={defaultFields}>
-        <Select
-          mode="multiple"
-          options={fieldOptions}
-        />
+        <Select mode="multiple" options={fieldOptions} />
       </Item>
       <Item>
         <Button block type="primary" htmlType="submit">

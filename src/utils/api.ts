@@ -2,13 +2,13 @@ import axios from "axios";
 import axiosRetry from "axios-retry";
 import { M_URL, M_API_KEY } from "./config";
 
-const instance = axios.create({
+const client = axios.create({
   baseURL: M_URL,
   timeout: 5000,
   headers: { Authorization: `Basic ${M_API_KEY}` },
 });
 
-axiosRetry(instance, { retries: 3 });
+axiosRetry(client, { retries: 3 });
 
 const data = {
   version: "3.0",
@@ -170,7 +170,7 @@ const data = {
 };
 
 export const processData = (raw) => {
-  const data = raw.data
+  const data = raw.data;
   const dates = data[0].coordinates[0].dates.map((d) => d.date);
   const params = data.map((d) => d.parameter);
   return {
@@ -184,9 +184,13 @@ export const processData = (raw) => {
         values,
       };
     }),
-  }
-}
+  };
+};
 
 export const getData = () => {
   return Promise.resolve(data).then(processData);
+};
+
+export const getData1 = (query) => {
+  return client.get(`${query}/json`).then(({ data }) => processData(data));
 };
