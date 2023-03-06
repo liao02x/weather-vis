@@ -16,7 +16,9 @@ function App() {
       <Header/>
       <Layout className="app__container">
         <Search />
-        <Content />
+        <Layout.Content className="app__content">
+          <Content />
+        </Layout.Content>
       </Layout>
       <Footer className="app__footer">
         <span>by @liao02x</span>

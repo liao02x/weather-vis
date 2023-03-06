@@ -84,15 +84,7 @@ export const processData = (raw, isHourly) => {
   return {
     timestamps,
     fields,
-    groups: data.map((d) => {
-      const param = d.parameter;
-      const values = d.coordinates[0].dates.map((d) => d.value);
-      return {
-        param,
-        values,
-        field: PARAM_FIELD_MAP[param],
-      };
-    }),
+    lastUpdated: Date.now(),
     data: timestamps.map((timestamp, i) => {
       const item = { timestamp };
       data.forEach((d) => {

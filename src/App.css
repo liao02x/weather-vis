@@ -45,6 +45,8 @@
   /* line-height: 120px; */
   overflow-y: auto;
   /* background-color: rgb(16, 142, 233); */
+  display: flex;
+  flex-direction: column;
 }
 
 .app__footer {
@@ -82,6 +84,9 @@
 }
 
 @media screen and (max-width: 576px) {
+  .app__root {
+    height: 100vh;
+  }
   .app__header {
     height: 36px;
     line-height: 36px;
@@ -138,12 +143,24 @@
   justify-content: space-between;
 }
 
+.j-c {
+  justify-content: center;
+}
+
 .a-c {
   align-items: center;
 }
 
 .a-b {
   align-items: baseline;
+}
+
+.f-0 {
+  flex: 0;
+}
+
+.f-1 {
+  flex: 1;
 }
 
 .g-2 {

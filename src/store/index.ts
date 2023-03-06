@@ -7,8 +7,7 @@ const initialState: any = {
   query: null,
   // data: null,
   // group: null,
-  tempTransform: false,
-  speedTransform: false,
+  unitTransform: {},
 };
 
 const buildText = (searchForm) => {
@@ -46,22 +45,14 @@ export const stateSlice = createSlice({
       state.query = null;
       // state.group = null;
     },
-    switchTempTransform: (state, action) => {
-      state.tempTransform = action.payload;
-    },
-    switchSpeedTransform: (state, action) => {
-      state.speedTransform = action.payload;
+    unitTransform: (state, action) => {
+      state.unitTransform[action.payload.unit] = action.payload.value;
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const {
-  setQuery,
-  resetQuery,
-  switchTempTransform,
-  switchSpeedTransform,
-} = stateSlice.actions;
+export const { setQuery, resetQuery, unitTransform } = stateSlice.actions;
 
 export const reducer = stateSlice.reducer;
 

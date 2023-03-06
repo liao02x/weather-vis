@@ -1,14 +1,16 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Layout, Card, Row, Col } from 'antd';
+import { Layout, Card, Row, Col, Spin } from 'antd';
 import { Line } from '@ant-design/plots';
 import { getData } from "@utils/api";
+
+import "./Content.css"
 
 
 export default function Content() {
   const [data, setData] = useState<any>([]);
   const [fields, setFields] = useState<any>([]);
-  const { text } = useSelector((state: any) => state);
+  const { text, query } = useSelector((state: any) => state);
   useEffect(() => {
     getData().then(data => {
       console.log(data)
@@ -23,8 +25,10 @@ export default function Content() {
     xField: 'timestamp',
   };
 
+  if (!data?.length) return <PlaceHolder />
+
   return (
-    <Layout.Content className="app__content">
+    <Spin>
       <div className="p-2">
         <span>{text}</span>
       </div>
@@ -39,6 +43,14 @@ export default function Content() {
           )
         })}
       </Row>
-    </Layout.Content>
+    </Spin>
+  )
+}
+
+const PlaceHolder = () => {
+  return (
+    <div className="content__placeholder">
+      <span>Search and visualize weather data</span>
+    </div>
   )
 }
