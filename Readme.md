@@ -9,11 +9,11 @@ This is a web app that allows users to search and visualize weather data. The ap
 - Select data fields to display
 - Switch unit
 
-## How to run
+## How to run on local
 1. Clone the repo
 2. Run `pnpm install` to install dependencies
-3. Before running the app, make sure the API keys are set in `.env` file. You can get the API keys from Meteomatics API [here](https://www.meteomatics.com/en/sign-up-weather-api-test-account/).
-4. Run `pnpm start` to start the app
+3. Before running the app, make sure the API keys are set in `.env` file. You can get the Meteomatics API key [here](https://www.meteomatics.com/en/sign-up-weather-api-test-account/). It is also using Google Maps Apis for Geocoding so a Google Map Api Key is needed.
+4. Run `pnpm dev` to start the dev server locally
 
 ## How to set up AWS Amplify for deployment
 1. Connect repo to AWS Amplify
