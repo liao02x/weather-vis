@@ -1,43 +1,85 @@
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { Layout, Card, Row, Col } from 'antd';
-import { Line } from '@ant-design/plots';
-import { getData } from "@/utils/api";
+import { Layout, Grid } from 'antd';
 
+import Card from './Card';
 
-export default function Dashboard({ data }) {
+import RGL, { WidthProvider } from "react-grid-layout";
+const ReactGridLayout = WidthProvider(RGL);
 
-  console.log(data)
+const { useBreakpoint } = Grid;
 
-  const [, setData] = useState<any>([]);
+export const renderDashboardItem = ({ grid, children }) => (
+  <div className="dashboard_item__wrapper" key={grid.i} data-grid={grid}>
+    <div className="dashboard_item">
+      {children}
+    </div>
+  </div>
+);
+
+export default function Dashboard({ data: res }) {
+  const [data, setData] = useState<any>([]);
   const [fields, setFields] = useState<any>([]);
-  useEffect(() => {
-    getData().then(data => {
-      console.log(data)
-      setData(data.data)
-      setFields(data.fields)
-    });
-  }, [])
+  const [layout, setLayout] = useState<any>([]);
+  const [row, setRow] = useState(3);
 
-  const config = {
-    data,
-    // padding: 'auto',
-    xField: 'timestamp',
+  const { xs, xl, xxl } = useBreakpoint();
+
+  useEffect(() => {
+    setFields(res.fields)
+    setData(res.data)
+    setLayout(generateLayout(res.fields, row))
+  }, [res.queryChanged])
+
+  useEffect(() => {
+    if (typeof xxl === 'boolean') {
+      setRow(xxl ? 3 : xl ? 2 : 1)
+    }
+  }, [xxl, xl])
+
+  useEffect(() => {
+    setLayout(generateLayout(res.fields, row))
+  }, [row])
+
+  console.log(useBreakpoint())
+
+  const generateLayout = (fields, row) => {
+    const w = 4, h = 6;
+    const layout = fields.map((field, i) => ({
+      i: `${row}-${i}`,
+      x: i % row * w,
+      y: Math.floor(i / row) * h,
+      w,
+      h,
+    }));
+    return layout;
+  }
+
+  const handleOnLayoutChange = (layout) => {
+    setLayout(layout);
   };
 
   return (
     <Layout.Content className="app__content">
-      <Row gutter={{ lg: 0, xl: 8, xxl: 16 }}>
-        {fields.map(field => {
-          return (
-            <Col lg={24} xl={12} xxl={8} >
-              <Card>
-                <Line {...config} yField={field} />
-              </Card>
-            </Col>
-          )
+      <ReactGridLayout
+        className="dashboard__layout"
+        margin={[16, 12]}
+        // draggableHandle=".rgl-draggable"
+        containerPadding={[16, 16]}
+        cols={row * 4}
+        rowHeight={50}
+        onLayoutChange={handleOnLayoutChange}
+        isDraggable={!xs}
+        isResizable={false}
+        measureBeforeMount
+      >
+        {layout.map((grid, i) => {
+          const field = fields[i];
+          return renderDashboardItem({
+            grid,
+            children: <Card data={data} field={field} />
+          })
         })}
-      </Row>
+      </ReactGridLayout>
     </Layout.Content>
   )
 }

@@ -12,7 +12,7 @@ This is a web app that allows users to search and visualize weather data. The ap
 ## How to run
 1. Clone the repo
 2. Run `pnpm install` to install dependencies
-3. Before running the app, make sure the API keys are set in `.env` file.
+3. Before running the app, make sure the API keys are set in `.env` file. You can get the API keys from Meteomatics API [here](https://www.meteomatics.com/en/sign-up-weather-api-test-account/).
 4. Run `pnpm start` to start the app
 
 ## How to set up AWS Amplify for deployment

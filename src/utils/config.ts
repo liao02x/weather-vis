@@ -134,8 +134,14 @@ export const PARAM_FIELD_MAP = Object.fromEntries(
 )
 
 export const UNIT_SWITCH_MAP = {
-  "m/s": (x) => x * 3.6,
-  "°C": (x) => (x * 9) / 5 + 32,
+  "m/s": {
+    transform: (x) => x * 3.6,
+    unit: "km/h",
+  },
+  "°C": {
+    transform: (x) => x * 1.8 + 32,
+    unit: "°F",
+  }
 };
 
 // basic plan is limited to 10 per request

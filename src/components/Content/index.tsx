@@ -1,50 +1,54 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Layout, Card, Row, Col, Spin } from 'antd';
+import { Card, Row, Col, Spin } from 'antd';
 import { useRequest } from 'ahooks';
 import { Line } from '@ant-design/plots';
 import { getData } from "@/utils/api";
+import Dashboard from './Dashboard';
 
 import "./Content.css"
 
+const load = (query, timestamp) => {
+  const now = Date.now()
+  console.log(now, timestamp)
+  return getData(query).then(data => {
+    return {
+      ...data,
+      queryChanged: now - timestamp < 1000,
+    }
+  })
+}
 
 export default function Content() {
-  const [data, setData] = useState<any>([]);
   const [fields, setFields] = useState<any>([]);
   const { text, query } = useSelector((state: any) => state);
 
+  const { data, loading, run, cancel } = useRequest(load, {
+    pollingInterval: 60 * 1000,
+    manual: true,
+  });
+
   useEffect(() => {
-    getData().then(data => {
-      console.log(data)
-      setData(data.data)
-      setFields(data.fields)
-    });
-  }, [])
+    if (query) {
+      run(query, Date.now());
+    }
+  }, [query])
 
   const config = {
     data,
-    // padding: 'auto',
     xField: 'timestamp',
   };
 
-  if (!data?.length) return <PlaceHolder />
+  if (!data) return <PlaceHolder />
+
+  console.log(data)
 
   return (
-    <Spin>
+    <Spin spinning={loading}>
       <div className="p-2">
         <span>{text}</span>
       </div>
-      <Row gutter={{ lg: 0, xl: 8, xxl: 16 }}>
-        {fields.map(field => {
-          return (
-            <Col lg={24} xl={12} xxl={8} >
-              <Card>
-                <Line {...config} yField={field} />
-              </Card>
-            </Col>
-          )
-        })}
-      </Row>
+      <Dashboard data={data} />
     </Spin>
   )
 }
