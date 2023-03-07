@@ -1,12 +1,11 @@
 import axios from "axios";
 import axiosRetry from "axios-retry";
 import day from "dayjs";
-import { M_URL, M_API_KEY, PARAM_FIELD_MAP } from "./config";
+import { M_URL, M_LOGIN_URL, M_API_KEY, PARAM_FIELD_MAP } from "./config";
 
 const client = axios.create({
   baseURL: M_URL,
   timeout: 5000,
-  headers: { Authorization: `Basic ${M_API_KEY}` },
 });
 
 axiosRetry(client, { retries: 3 });
@@ -41,9 +40,19 @@ export const processData = (raw, isHourly) => {
   };
 };
 
-export const getData = (query) => {
+const getToken = () => {
+  return axios.get(M_LOGIN_URL, {
+    headers: {
+      Authorization: `Basic ${M_API_KEY}`,
+    },
+  })
+  .then(({data}) => data.access_token)
+}
+
+export const getData = async (query) => {
   const isHourly = query.includes(":PT1H");
+  const token = await getToken();
   return client
-    .get(`${query}/json`)
+    .get(`${query}/json?access_token=${token}`)
     .then(({ data }) => processData(data, isHourly));
 };

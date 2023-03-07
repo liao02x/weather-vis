@@ -1,4 +1,5 @@
 export const M_URL = "https://api.meteomatics.com/";
+export const M_LOGIN_URL = "https://login.meteomatics.com/api/v1/token";
 
 // https://www.meteomatics.com/en/api/available-parameters/
 // API parameter	Description
