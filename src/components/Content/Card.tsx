@@ -2,24 +2,21 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Dropdown, Space } from "antd";
 import { DownOutlined } from "@ant-design/icons";
-import { Line, Bar, Pie } from "@ant-design/plots";
+import { Line, Column, Pie, Heatmap } from "@ant-design/plots";
 import { QUERY_PARAM_DICT, UNIT_SWITCH_MAP } from "@/utils/config";
 
 const CardWrapper = ({ title, extra, children }) => {
   return (
     <>
       <div style={{ zIndex: 1 }}>
-        <div
-          style={{
-            padding: 8,
-            width: "100%",
-            position: "absolute",
-            userSelect: "none",
-            cursor: "move",
-          }}
-        >
-          <span>{title}</span>
-          <div style={{ float: "right" }} onMouseDown={e => e.stopPropagation()}>
+        <div className="card__title">
+          <span className="rgl-draggable">{title}</span>
+          <div
+            style={{ float: "right" }}
+            onDragStart={(e) => e.stopPropagation()}
+            onMouseDown={(e) => e.stopPropagation()}
+            onTouchStart={(e) => e.stopPropagation()}
+          >
             {extra}
           </div>
         </div>
@@ -39,8 +36,7 @@ const CardWrapper = ({ title, extra, children }) => {
 
 const GRAPH_TYPE_MAP = {
   line: Line,
-  bar: Bar,
-  pie: Pie,
+  bar: Column,
 };
 
 export default function Card({ field, data }) {
@@ -79,11 +75,16 @@ export default function Card({ field, data }) {
   const items = Object.keys(GRAPH_TYPE_MAP).map((key) => ({
     key,
     label: (
-      <a onClick={(e) => {e.preventDefault();setType(key)}}>
+      <a
+        onClick={(e) => {
+          e.preventDefault();
+          setType(key);
+        }}
+      >
         {key}
       </a>
-    )
-  }))
+    ),
+  }));
 
   return (
     <CardWrapper
@@ -112,16 +113,6 @@ export default function Card({ field, data }) {
             autoEllipsis: true,
           },
         }}
-        // tooltip={{
-        //   formatter: (datum) => {
-        //     return {
-        //       name: datum.label,
-        //       value:
-        //         formatFloat(datum.value) +
-        //         (config.type === "duration" ? "s" : ""),
-        //     };
-        //   },
-        // }}
       />
     </CardWrapper>
   );

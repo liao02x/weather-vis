@@ -79,7 +79,6 @@ export default function SearchForm() {
 
   const handleSubmit = (values) => {
     const { location, fields, group, time } = values;
-    // console.log(values);
     dispatch(
       setQuery({
         location,

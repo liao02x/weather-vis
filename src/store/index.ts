@@ -21,7 +21,6 @@ const buildText = (searchForm) => {
 };
 
 const buildQuery = (searchForm) => {
-  console.log(searchForm);
   const { location, time, fields, group } = searchForm;
   const params = fields.map((field) => QUERY_PARAM_DICT[field].field);
   const { lat, lng } = location;
@@ -34,11 +33,13 @@ export const stateSlice = createSlice({
   initialState,
   reducers: {
     setQuery: (state, action) => {
-      console.log(buildQuery(action.payload));
-      console.log(buildText(action.payload));
       state.text = buildText(action.payload);
       state.query = buildQuery(action.payload);
       // state.group = action.payload.group;
+    },
+    _setQuery: (state, action) => {
+      state.text = action.payload.text;
+      state.query = action.payload.query;
     },
     resetQuery: (state) => {
       state.text = null;
@@ -52,7 +53,7 @@ export const stateSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { setQuery, resetQuery, unitTransform } = stateSlice.actions;
+export const { setQuery, resetQuery, _setQuery, unitTransform } = stateSlice.actions;
 
 export const reducer = stateSlice.reducer;
 

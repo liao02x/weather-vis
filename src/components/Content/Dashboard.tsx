@@ -40,10 +40,8 @@ export default function Dashboard({ data: res }) {
     setLayout(generateLayout(res.fields, row))
   }, [row])
 
-  console.log(useBreakpoint())
-
   const generateLayout = (fields, row) => {
-    const w = 4, h = 6;
+    const w = 4, h = 5;
     const layout = fields.map((field, i) => ({
       i: `${row}-${i}`,
       x: i % row * w,
@@ -63,7 +61,7 @@ export default function Dashboard({ data: res }) {
       <ReactGridLayout
         className="dashboard__layout"
         margin={[16, 12]}
-        // draggableHandle=".rgl-draggable"
+        draggableHandle=".rgl-draggable"
         containerPadding={[16, 16]}
         cols={row * 4}
         rowHeight={50}

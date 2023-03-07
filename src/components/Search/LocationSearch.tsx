@@ -40,14 +40,12 @@ const LocationSearch = ({ value, onChange }) => {
   const [options, setOptions] = useState<any>([]);
 
   useEffect(() => {
-    console.log(query);
     const service = new window.google.maps.places.PlacesService(
       document.createElement("div")
     );
 
     if (query) {
       if (query.match(/^-?\d+\.?\d*,\s*-?\d+\.?\d*$/)) {
-        console.log("lat,lng");
         const [lat, lng] = query.split(",").map((s) => parseFloat(s));
         setOptions([
           {
@@ -70,7 +68,6 @@ const LocationSearch = ({ value, onChange }) => {
           if (status === window.google.maps.places.PlacesServiceStatus.OK) {
             setOptions(processOptions(results));
           }
-          console.log(results, status);
         }
       );
     } else {
@@ -87,7 +84,6 @@ const LocationSearch = ({ value, onChange }) => {
   }, [value]);
 
   const onSelect = (value, option) => {
-    console.log("onSelect", value, option);
     onChange(option.data);
   };
 
