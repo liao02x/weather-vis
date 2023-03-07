@@ -14,7 +14,7 @@ const load = (query, timestamp) => {
   return getData(query).then((data) => {
     return {
       ...data,
-      queryChanged: now - timestamp < 1000,
+      queryUpdateAt: timestamp,
     };
   });
 };

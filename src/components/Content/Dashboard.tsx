@@ -28,7 +28,7 @@ export default function Dashboard({ data: res }) {
     setFields(res.fields)
     setData(res.data)
     setLayout(generateLayout(res.fields, row))
-  }, [res.queryChanged])
+  }, [res.queryUpdateAt])
 
   useEffect(() => {
     if (typeof xxl === 'boolean') {
