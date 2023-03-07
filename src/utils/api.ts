@@ -3,9 +3,14 @@ import axiosRetry from "axios-retry";
 import day from "dayjs";
 import { M_URL, M_LOGIN_URL, M_API_KEY, PARAM_FIELD_MAP } from "./config";
 
+const CORS_PROXY = "https://lucky-horse-36.deno.dev/"
+
 const client = axios.create({
-  baseURL: M_URL,
+  baseURL: CORS_PROXY+M_URL,
   timeout: 5000,
+  headers: {
+    Authorization: `Basic ${M_API_KEY}`,
+  },
 });
 
 axiosRetry(client, { retries: 3 });
@@ -41,7 +46,7 @@ export const processData = (raw, isHourly) => {
 };
 
 const getToken = () => {
-  return axios.get(M_LOGIN_URL, {
+  return axios.get(CORS_PROXY+M_LOGIN_URL, {
     headers: {
       Authorization: `Basic ${M_API_KEY}`,
     },
